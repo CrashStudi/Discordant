@@ -1,4 +1,4 @@
-from Discordant_Character import Character, Stat
+from Discordant_Character import Character, Stat, Interviews, MiniStat
 from Discordant_Teams import Teams
 from Discordant_Stadium import Stadium
 from Discordant_Modifier import injured, moribund, homesteader, tempo
@@ -86,9 +86,8 @@ class Battle:
         team1_hypemembers = [member for member in self.team1.members if member in self.hypeattacklist]
         team2_hypemembers = [member for member in self.team2.members if member in self.hypeattacklist]
 
-        character1hype_names = ', '.join([member.name for member in team1_hypemembers])
-        character2hype_names = ', '.join([member.name for member in team2_hypemembers])
-        print(character1hype_names, character2hype_names)
+        character1hype_names = ', '.join([member.interviews.name for member in team1_hypemembers])
+        character2hype_names = ', '.join([member.interviews.name for member in team2_hypemembers])
         
         while team1_hypemembers and team2_hypemembers:
             # print("While Performed")
@@ -97,31 +96,31 @@ class Battle:
             # print(team1_hypemembers, team2_hypemembers)
 
             if hypeclash1 > hypeclash2:
-                print(f"{team2_hypemembers[0].name}'s hype ({hypeclash2}) is overpowered!")
+                print(f"{team2_hypemembers[0].interviews.name}'s hype ({hypeclash2}) is overpowered!")
                 team2_hypemembers.remove(team2_hypemembers[0])
 
             elif hypeclash1 < hypeclash2:
-                print(f"{team1_hypemembers[0].name}'s hype ({hypeclash1}) is overpowered!")
+                print(f"{team1_hypemembers[0].interviews.name}'s hype ({hypeclash1}) is overpowered!")
                 team1_hypemembers.remove(team1_hypemembers[0])
 
             elif team1_hypemembers[0].hype.base > team2_hypemembers[0].hype.base:
-                print(f"{team2_hypemembers[0].name}'s hype ({hypeclash2}) is overpowered!")
+                print(f"{team2_hypemembers[0].interviews.name}'s hype ({hypeclash2}) is overpowered!")
                 team2_hypemembers.pop(0)
 
             elif team2_hypemembers[0].hype.base < team1_hypemembers[0].hype.base:
-                print(f"{team1_hypemembers[0].name}'s hype ({hypeclash1}) is overpowered!")
+                print(f"{team1_hypemembers[0].interviews.name}'s hype ({hypeclash1}) is overpowered!")
                 team1_hypemembers.pop(0)
 
             else:
                 if random.randint(1, 2) == 1:
-                    print(f"{team1_hypemembers[0].name}'s hype ({hypeclash1}) is overpowered!")
+                    print(f"{team1_hypemembers[0].interviews.name}'s hype ({hypeclash1}) is overpowered!")
                     team1_hypemembers.pop(0)
                 else:
-                    print(f"{team2_hypemembers[0].name}'s hype ({hypeclash2}) is overpowered!")
+                    print(f"{team2_hypemembers[0].interviews.name}'s hype ({hypeclash2}) is overpowered!")
                     team2_hypemembers.pop(0)
         if team1_hypemembers:
             for member in team1_hypemembers:
-                print(f'> {member.name} is hyped!')
+                print(f'> {member.interviews.name} is hyped!')
             self.team1.showrunner.extend(member for member in team1_hypemembers)
             self.team1.hypetracking()
             team1_hypemembers.clear()
@@ -129,7 +128,7 @@ class Battle:
             # print("Team 1 sublist is empty")
         elif team2_hypemembers:
             for member in team2_hypemembers:
-                print(f'> {member.name} is hyped!')
+                print(f'> {member.interviews.name} is hyped!')
             self.team2.showrunner.extend(member for member in team2_hypemembers)
             self.team2.hypetracking()
             team1_hypemembers.clear()
@@ -149,32 +148,32 @@ class Battle:
             # print(team1_hypemembers, team2_hypemembers)
 
             if harmonyclash1 > harmonyclash2:
-                print(f"{team2_harmonymembers[0].name}'s harmony is overpowered by {team1_harmonymembers[0].name}!")
+                print(f"{team2_harmonymembers[0].interviews.name}'s harmony is overpowered by {team1_harmonymembers[0].interviews.name}!")
                 team2_harmonymembers.remove(team2_harmonymembers[0])
 
             elif harmonyclash1 < harmonyclash2:
-                print(f"{team1_harmonymembers[0].name}'s harmony is overpowered by {team2_harmonymembers[0].name}!")
+                print(f"{team1_harmonymembers[0].interviews.name}'s harmony is overpowered by {team2_harmonymembers[0].interviews.name}!")
                 team1_harmonymembers.remove(team1_harmonymembers[0])
 
             elif team1_harmonymembers[0].harmony.base > team2_harmonymembers[0].harmony.base:
-                print(f"{team2_harmonymembers[0].name}'s harmony is overpowered by {team1_harmonymembers[0].name}!")
+                print(f"{team2_harmonymembers[0].interviews.name}'s harmony is overpowered by {team1_harmonymembers[0].interviews.name}!")
                 team2_harmonymembers.pop(0)
 
             elif team2_harmonymembers[0].harmony.base < team1_harmonymembers[0].harmony.base:
-                print(f"{team1_harmonymembers[0].name}'s harmony is overpowered by {team2_harmonymembers[0].name}!")
+                print(f"{team1_harmonymembers[0].interviews.name}'s harmony is overpowered by {team2_harmonymembers[0].interviews.name}!")
                 team1_harmonymembers.pop(0)
 
             else:
                 if random.randint(1, 2) == 1:
-                    print(f"{team1_harmonymembers[0].name}'s harmony is overpowered by {team2_harmonymembers[0].name}!")
+                    print(f"{team1_harmonymembers[0].interviews.name}'s harmony is overpowered by {team2_harmonymembers[0].interviews.name}!")
                     team1_harmonymembers.pop(0)
                 else:
-                    print(f"{team2_harmonymembers[0].name}'s harmony is overpowered by {team1_harmonymembers[0].name}!")
+                    print(f"{team2_harmonymembers[0].interviews.name}'s harmony is overpowered by {team1_harmonymembers[0].interviews.name}!")
                     team2_harmonymembers.pop(0)
 
         if team1_harmonymembers:
             for member in team1_harmonymembers:
-                print(f'> {member.name} resonates.')
+                print(f'> {member.interviews.name} resonates.')
                 self.stadium.resonance1 += 1
             team1_harmonymembers.clear()
             team2_harmonymembers.clear()
@@ -184,7 +183,7 @@ class Battle:
 
         elif team2_harmonymembers:
             for member in team2_harmonymembers:
-                print(f'> {member.name} resonates.')
+                print(f'> {member.interviews.name} resonates.')
                 self.stadium.resonance2 += 1
             team1_harmonymembers.clear()
             team2_harmonymembers.clear()
@@ -204,27 +203,27 @@ class Battle:
 
 
             if discordclash1 > discordclash2:
-                print(f"{team2_discordmembers[0].name}'s discord is overpowered by {team1_discordmembers[0].name}!")
+                print(f"{team2_discordmembers[0].interviews.name}'s discord is overpowered by {team1_discordmembers[0].interviews.name}!")
                 team2_discordmembers.remove(team2_discordmembers[0])
 
             elif discordclash1 < discordclash2:
-                print(f"{team1_discordmembers[0].name}'s discord is overpowered by {team2_discordmembers[0].name}!")
+                print(f"{team1_discordmembers[0].interviews.name}'s discord is overpowered by {team2_discordmembers[0].interviews.name}!")
                 team1_discordmembers.remove(team1_discordmembers[0])
 
             elif team1_discordmembers[0].discord.base > team2_discordmembers[0].discord.base:
-                print(f"{team2_discordmembers[0].name}'s discord is overpowered by {team1_discordmembers[0].name}!")
+                print(f"{team2_discordmembers[0].interviews.name}'s discord is overpowered by {team1_discordmembers[0].interviews.name}!")
                 team2_discordmembers.pop(0)
 
             elif team2_discordmembers[0].discord.base < team1_discordmembers[0].discord.base:
-                print(f"{team1_discordmembers[0].name}'s discord is overpowered by {team2_discordmembers[0].name}!")
+                print(f"{team1_discordmembers[0].interviews.name}'s discord is overpowered by {team2_discordmembers[0].interviews.name}!")
                 team1_discordmembers.pop(0)
 
             else:
                 if random.randint(1, 2) == 1:
-                    print(f"{team1_discordmembers[0].name}'s discord is overpowered by {team2_discordmembers[0].name}!")
+                    print(f"{team1_discordmembers[0].interviews.name}'s discord is overpowered by {team2_discordmembers[0].interviews.name}!")
                     team1_discordmembers.pop(0)
                 else:
-                    print(f"{team2_discordmembers[0].name}'s discord is overpowered by {team1_discordmembers[0].name}!")
+                    print(f"{team2_discordmembers[0].interviews.name}'s discord is overpowered by {team1_discordmembers[0].interviews.name}!")
                     team2_discordmembers.pop(0)
 
         if team1_discordmembers:
@@ -232,15 +231,15 @@ class Battle:
                 y = random.choice(self.team2.members)
                 x = member
                 y.health.current_stat += -(x.damage.total)
-                print(f'> {y.name} is hit for {x.damage.total} by {x.name}! {y.name} has {y.health.current_stat} ticks left.')
+                print(f'> {y.interviews.name} is hit for {x.damage.total} by {x.interviews.name}! {y.interviews.name} has {y.health.current_stat} ticks left.')
             if y.health.current_stat <= round(y.health.base * .66):
                 if injury_mod not in y.active_effects:
                     injury_mod.modifier_append(y)
-                    print(y.name + " Is Injured!")
+                    print(y.interviews.name + " Is Injured!")
             if y.health.current_stat <= round(y.health.base * .33):
                 if moribund_mod not in y.active_effects:
                     moribund_mod.modifier_append(y)
-                    print(y.name + " Is Moribund!")
+                    print(y.interviews.name + " Is Moribund!")
             team1_discordmembers.clear()
             team2_discordmembers.clear()
             # print("Team 1 sublist is empty")
@@ -249,17 +248,17 @@ class Battle:
                 y = random.choice(self.team1.members)
                 x = member
                 y.health.current_stat += -(x.damage.total)
-                print(f'> {y.name} is hit for {x.damage.total} by {x.name}! {y.name} has {y.health.current_stat} ticks left.')
+                print(f'> {y.interviews.name} is hit for {x.damage.total} by {x.interviews.name}! {y.interviews.name} has {y.health.current_stat} ticks left.')
             if y.health.current_stat <= round(y.health.base * .66):
                 if injury_mod not in y.active_effects:
                     injury_mod.modifier_append(y)
                     injury_mod.check_condition(y)
-                    print(y.name + " Is Injured!")
+                    print(y.interviews.name + " Is Injured!")
             if y.health.current_stat <= round(y.health.base * .33):
                 if moribund_mod not in y.active_effects:
                     moribund_mod.modifier_append(y)
                     moribund_mod.check_condition(y)
-                    print(y.name + " Is Moribund!")
+                    print(y.interviews.name + " Is Moribund!")
             team1_discordmembers.clear()
             team2_discordmembers.clear()
         else:
@@ -273,33 +272,32 @@ Philosophers = Teams("Philosophers")
 Philosophers.set_stadium(Turmoilrig)
 print(Philosophers.stadium)
 
-Plato = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), name="Plato")
-Socrates = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), name="Socrates")
-Aristotle = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), name="Aristotle")
+Plato = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), Interviews(name="Plato"))
+Socrates = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), Interviews(name="Socrates"))
+Aristotle = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), Interviews(name="Aristotle"))
 
 Keeblers = Teams("Keeblers")
 Keeblers.set_stadium(The_Great_Tree)
 
-Snap = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), name="Snap")
-Crackle = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), name="Crackle")
-Pop = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), name="Pop")
+Snap = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), Interviews(name="Snap"))
+Crackle = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), Interviews(name="Crackle"))
+Pop = Character(Stat(5), Stat(5), Stat(5), Stat(12, 12), Stat(2), Interviews(name="Pop"))
 
 Philosophers.set_members(Plato)
 Philosophers.set_members(Socrates)
 Philosophers.set_members(Aristotle)
 Keeblers.set_members(Snap)
 Keeblers.set_members(Crackle)
-Keeblers.set_members(Pop)
 
+dprint(Plato)
 
 def dprint(C, Checkfull=None):
     if Checkfull is None:
-        pprint((C.harmony, C.hype, C.discord, C.health, C.damage, C.name, C.team.name, C.inactive_effects))
+        pprint((C.harmony, C.hype, C.discord, C.health, C.damage, C.interviews.name, C.interviews.team.name, C.inactive_effects))
     else:
         print(C.harmony.total, C.hype.total, C.discord.total, C.health.total, C.damage.total, C.name)
 
 
-dprint(Plato)
 battlerun = Battle(Philosophers, Keeblers, Turmoilrig, shining)
 
 injury_mod = injured(0, name="Injured", character=Character)

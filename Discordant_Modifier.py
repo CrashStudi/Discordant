@@ -28,8 +28,8 @@ class Modifier:
 class homesteader(Modifier):
     def check_condition(self, character):
         print(self.battle.stadium)
-        print(character.team.stadium)
-        if self.battle.stadium == character.team.stadium:
+        print(character.interviews.team.stadium)
+        if self.battle.stadium == character.interviews.team.stadium:
             if self not in character.active_effects:
                 self.apply_effect(character)
 

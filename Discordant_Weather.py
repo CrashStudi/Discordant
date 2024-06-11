@@ -53,11 +53,11 @@ class Weather:
 class sunny(Weather):
     projection.initial_projection = 1  # The value (1-x) of the weather
     projection.initial_call = .5  # The value required to trigger it's effect
-    
+
     def weather_call(self):  # The effect trigger
         if random.uniform(0,1) <= projection.initial_call:
             self.effect_apply_else()
-            
+
     def effect_apply_else(self): # The effect instance
         if random.uniform(0, 1) <= self.projection.initial_call:
             print("> > The sun is shining.")

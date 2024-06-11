@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import Any
 import random
 
+
 @dataclass
 class Stat:
     base: int = 0
@@ -17,20 +18,36 @@ class Stat:
 
 
 @dataclass
+class MiniStat:
+    mode: int = 0
+    timbre: int = 0
+    reach: int = 0
+    threading: int = 0
+    mixing: int = 0
+
+
+@dataclass
+class Interviews:
+    team: Any = field(default=None, repr=False)
+    name: str = field(default="Null")
+    danger: int = 0
+    genre: str = field(default="All")
+    habit: str = field(default="All")
+
+
+@dataclass
 class Character:
     harmony: Stat
     hype: Stat
     discord: Stat
     health: Stat
     damage: Stat
-    danger: int = 0
-    team: Any = field(default=None)
-    name: str = field(default="Null")
+    interviews: Interviews
     inactive_effects: list = field(default_factory=list)
     active_effects: list = field(default_factory=list)
     status: list = field(default_factory=list)
+    substat: MiniStat = field(default_factory=MiniStat)
     attackresult: list = field(default_factory=list)
-    
 
     def tribulate_percents(self):
         stattotal = (self.hype.base + self.harmony.base + self.discord.base)
@@ -55,9 +72,9 @@ class Character:
         for mod in self.inactive_effects + self.active_effects + self.status:
             danger += mod.danger
         return danger
-    
+
     def __post_init__(self):
-        self.danger_value
+        self.interviews.danger = self.danger_value
 
     def CharacterModifier_apply(self, CharacterModifier):
         self.inactive_effects.append(CharacterModifier)
@@ -70,4 +87,5 @@ class Character:
 
     def discordattack(self):
         self.attackresult = [3]
-        # FightInstance.discordattacklist.append(self)
+
+

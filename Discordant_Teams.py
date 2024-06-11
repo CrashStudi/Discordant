@@ -6,7 +6,7 @@ from typing import Any
 @dataclass
 class Teams:
     name: str
-    stadium: Stadium = Stadium
+    stadium: Stadium = field(default_factory=Stadium)
     effects: Any = None
     hypebonus: int = 0
     wins: int = 0
@@ -29,7 +29,7 @@ class Teams:
 
     def set_members(self, member: Character):
         self.members.append(member)
-        member.team = (self)
+        member.interviews.team = (self)
         # print(f"Adding member: {member.name}")
 
     def set_stadium(self, stadium):
