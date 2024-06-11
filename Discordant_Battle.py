@@ -289,7 +289,6 @@ Philosophers.set_members(Aristotle)
 Keeblers.set_members(Snap)
 Keeblers.set_members(Crackle)
 
-dprint(Plato)
 
 def dprint(C, Checkfull=None):
     if Checkfull is None:
