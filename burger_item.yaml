@@ -1,0 +1,9 @@
+!Hamburger
+bottombun: Regular
+patty: Beef
+sauces: Mustard
+topbun: Regular
+toppings: !!python/tuple
+- Beef
+- None
+- Tomato
