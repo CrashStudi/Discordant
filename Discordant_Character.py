@@ -32,7 +32,7 @@ class Interviews:
     name: str = field(default="Null")
     danger: int = 0
     genre: str = field(default="All")
-    habit: str = field(default="All")
+    vibe: str = field(default="All")
 
 
 @dataclass
@@ -42,7 +42,7 @@ class Character:
     discord: Stat
     health: Stat
     damage: Stat
-    interviews: Interviews
+    interviews: Interviews = field(default_factory=Interviews)
     inactive_effects: list = field(default_factory=list)
     active_effects: list = field(default_factory=list)
     status: list = field(default_factory=list)
@@ -75,6 +75,12 @@ class Character:
 
     def __post_init__(self):
         self.interviews.danger = self.danger_value
+        # Substat Zone - Mode, Timbre, Reach, Thread, Mixing
+        self.substat.mode = round(.5 * self.harmony.total) + round(.5 * self.hype.total)
+        self.substat.timbre = round(.5 * self.harmony.total) + round(.5 * self.discord.total)
+        self.substat.reach = round(.5 * self.hype.total) + round(.5 * self.discord.total)
+        self.substat.threading = round(.33 * self.harmony.total) + round(.66 * self.discord.total)
+        self.substat.mixing = round(.33 * self.harmony.total) + round(.66 * self.hype.total)
 
     def CharacterModifier_apply(self, CharacterModifier):
         self.inactive_effects.append(CharacterModifier)
@@ -89,3 +95,28 @@ class Character:
         self.attackresult = [3]
 
 
+firstnamelist = ["Sasha", "Murky", "Horrible", "Garfield", "Andrew", "Roxxas", "Scalar", "Henry", "Falco", "Trilby", "Mark", "Aro", "Ari", "Kevin", "Kelvin", "Toby", "CGO", "Elm", "Nail", "Scabbard", "Pyxis", "Pix", "Mel", "Foil"]
+lastnamelist = ["Dunk", "Ulliuan", "Mulligan", "Eroka", "Garfield","Telli", "Smith", "Kells", "Selli", "Cone", "Mult", "Pothos", "Mason", "Wood", "Glover", "Ball", "Bently", "Trumpet", "Galapagos", "Tree", "Markul", "Egada", "Roland", "Crueller", "Elliot"]
+genres = ["Qwopcore", "Lo-Fi", "Pop Rock", "Punk", "Classical", "Low-Classical", "High-Classical", "Key Jingling", "Crispwave", "Hivemind", "Spike Trap", "Mudglitch", "Indie", "Orange","OwOCore"]
+
+
+def Character_Create():
+
+    def marks():
+        y = int(max(0, (random.randint(0, 6)-random.randint(0, 4))))
+        return y
+
+    Harmony = marks()
+    Hype = marks()
+    Discord = marks()
+    Health = 12
+    Damage = 2
+    InterviewName = random.choice(firstnamelist) + random.choice(lastnamelist)
+    InterviewTeam = None
+    InterviewGenre = random.choice(genres)
+    InterviewHabit = None
+    x = Character(Stat(Harmony), Stat(Hype), Stat(Discord), Stat(Health, Health), Stat(Damage), Interviews(name=InterviewName, genre=InterviewGenre))
+    return x
+
+
+print(Character_Create())
