@@ -53,6 +53,31 @@ class Battle:
         while self.stadium.resonance1 < 10 and self.stadium.resonance2 < 10:
             print(self.stadium.resonance1, self.stadium.resonance2)
             self.round()
+    
+    def team_clean_check(self):
+        for member in self.team1.members:
+            for modifier in member.inactive_effects:
+                modifier.check_condition(member)
+        for member in self.team2.members:
+            for modifier in member.inactive_effects:
+                modifier.check_condition(member)
+
+    def team1_tribbing_function(self):
+        for member in self.team1.members:
+            member.tribulate_percents()
+
+    def team2_tribbing_function(self):
+        for member in self.team2.members:
+            member.tribulate_percents()
+            
+    def collaborative_tribbing(self):
+        self.team1_tribbing_function()
+        self.team2_tribbing_function()
+
+    def declare_actions(self):
+        self.declare_harmonyattacklist()
+        self.declare_hypeattacklist()
+        self.declare_discordattacklist()
 
     def round(self):
         # Characters Tribulate. Tribulation chooses their action, and places them in that respective action list.
@@ -64,24 +89,10 @@ class Battle:
         self.hypeattacklist.clear()
         self.discordattacklist.clear()
         self.effect_clear()
+        self.collaborative_tribbing()
         self.weather.weather_call()
-        
-        for member in self.team1.members:
-            for modifier in member.inactive_effects:
-                modifier.check_condition(member)
-        # for member in self.team1.members:
-            # self.team1.members.inactive_effects.check_conditions(self)
-
-        for member in self.team1.members:
-            member.tribulate_percents()
-            # member.inactive_effects.CharacterModifiers.check_conditions()
-
-        for member in self.team2.members:
-            member.tribulate_percents()
-            # member.inactive_effects.CharacterModifiers.check_conditions()
-        self.declare_harmonyattacklist()
-        self.declare_hypeattacklist()
-        self.declare_discordattacklist()
+        self.team_clean_check()
+        self.declare_actions()
             
         team1_hypemembers = [member for member in self.team1.members if member in self.hypeattacklist]
         team2_hypemembers = [member for member in self.team2.members if member in self.hypeattacklist]

@@ -95,9 +95,10 @@ class Character:
         self.attackresult = [3]
 
 
-firstnamelist = ["Sasha", "Murky", "Horrible", "Garfield", "Andrew", "Roxxas", "Scalar", "Henry", "Falco", "Trilby", "Mark", "Aro", "Ari", "Kevin", "Kelvin", "Toby", "CGO", "Elm", "Nail", "Scabbard", "Pyxis", "Pix", "Mel", "Foil"]
-lastnamelist = ["Dunk", "Ulliuan", "Mulligan", "Eroka", "Garfield","Telli", "Smith", "Kells", "Selli", "Cone", "Mult", "Pothos", "Mason", "Wood", "Glover", "Ball", "Bently", "Trumpet", "Galapagos", "Tree", "Markul", "Egada", "Roland", "Crueller", "Elliot"]
-genres = ["Qwopcore", "Lo-Fi", "Pop Rock", "Punk", "Classical", "Low-Classical", "High-Classical", "Key Jingling", "Crispwave", "Hivemind", "Spike Trap", "Mudglitch", "Indie", "Orange","OwOCore"]
+firstnamelist = ["Konane", "Puff", "Slap", "Dawn", "Melvin", "Blorch", "Cache", "Jay", "Iori", "Puffbird", "Tanagar", "Petrel", "Hornbill", "Macgellan", "Salvatore", "Margarita", "Kai", "Kaylani", "Christof", "Augustine", "Lavender", "Marx-Anthony", "Eizabeth", "Macgillicutty", "Estrolfo", "Evangeline", "Remy", "Sauce", "Quail", "Lingdenstein", "Kazani", "Sasha", "Murky", "Karl", "Horrible", "Garfield", "Andrew", "Roxxas", "Scalar", "Henry", "Falco", "Trilby", "Mark", "Aro", "Ari", "Kevin", "Kelvin", "Toby", "CGO", "Elm", "Nail", "Scabbard", "Pyxis", "Pix", "Mel", "Foil"]
+lastnamelist = ["Boss", "Bass", "DeWick", "Kerman", "Bylaw", "Blorch", "Diggins", "Boobie", "Parade", "Ibis", "Sunbird", "Gull", "Fableman", "Makoa", "Manu", "Anela", "Mahi'ai", "Alana", "Boyko", "Rose", "Kazani", "Dunk", "Ulliuan", "Mulligan", "Eroka", "Rupert", "Garfield", "Telli", "Smith", "Kells", "Selli", "Cone", "Mult", "Pothos", "Mason", "Wood", "Glover", "Ball", "Bently", "Trumpet", "Galapagos", "Tree", "Markul", "Egada", "Roland", "Crueller", "Elliot"]
+genres = ["Crime", "Blorch", "Brakecore", "Breakcore", "Melodic EDM", "EDM", "Dreamcore", "Weirdcore", "Futurebass", "Hyperpop", "Emo", "Death", "Death Metal", "Qwopcore", "Impressionism", "Lo-Fi", "Pop Rock", "Punk", "Classical", "Low-Classical", "High-Classical", "Key Jingling", "Crispwave", "Hivemind", "Spike Trap", "Mudglitch", "Indie", "Orange","OwOCore", "Assassin"]
+vibes = ["Muddy", "Friend-Shaped", "Blorch", "Instant", "Putrid", "Slightly Sticky", "Indie", "Rock", "Stone", "Wilson", "Lederhosen", "Creamy", "Crime", "Gutter", "Rat", "Redeemed", "High", "Quaint", "Dainty", "Mellow", "Refined", "Wholistic", "Explosive", "Stabbing", "Backflip", "Frontflip", "Hell"]
 
 
 def Character_Create():
@@ -111,12 +112,16 @@ def Character_Create():
     Discord = marks()
     Health = 12
     Damage = 2
-    InterviewName = random.choice(firstnamelist) + random.choice(lastnamelist)
+    InterviewName = random.choice(firstnamelist) + ' ' + random.choice(lastnamelist)
     InterviewTeam = None
     InterviewGenre = random.choice(genres)
-    InterviewHabit = None
-    x = Character(Stat(Harmony), Stat(Hype), Stat(Discord), Stat(Health, Health), Stat(Damage), Interviews(name=InterviewName, genre=InterviewGenre))
+    InterviewVibes = random.choice(vibes)
+    x = Character(Stat(Harmony), Stat(Hype), Stat(Discord), Stat(Health, Health), Stat(Damage), Interviews(name=InterviewName, genre=InterviewGenre, vibe=InterviewVibes))
     return x
 
 
 print(Character_Create())
+print(len(firstnamelist))
+print(len(lastnamelist))
+print(len(genres))
+print(len(vibes))
