@@ -118,10 +118,13 @@ class Battle:
                 oxford_statement1 = format_clash(mark1)
                 if len(mark1) <= 1:
                     oxford_statement1 = oxford_statement1 + ' goes'
+                    return oxford_statement1
                 else:
                     oxford_statement1 = oxford_statement1 + ' go'
+                    return oxford_statement1
             if len(mark2) >= 1:
                 oxford_statement2 = format_clash(mark2)
+                return oxford_statement2
 
         def hype_sequence():
             while team1_hypemembers and team2_hypemembers:
@@ -168,13 +171,11 @@ class Battle:
                 team2_hypemembers.clear()
             else:
                 print("The stadium is dim.")
-        
+
         def harmony_sequence():
             while team1_harmonymembers and team2_harmonymembers:
-                # print("While Performed")
                 harmonyclash1 = (team1_harmonymembers[0].harmony.total) + (random.randint(1, 6) + random.randint(1, 6))
                 harmonyclash2 = (team2_harmonymembers[0].harmony.total) + (random.randint(1, 6) + random.randint(1, 6))
-                # print(team1_hypemembers, team2_hypemembers)
 
                 if harmonyclash1 > harmonyclash2:
                     print(f"{team2_harmonymembers[0].interviews.name}'s harmony is overpowered by {team1_harmonymembers[0].interviews.name}!")
@@ -206,7 +207,6 @@ class Battle:
                     self.stadium.resonance1 += 1
                 team1_harmonymembers.clear()
                 team2_harmonymembers.clear()
-                    # print(self.stadium.resonance1)
                 if self.stadium.resonance1 >= 10:
                     print(f"> > > {self.team1.name} Is Resonating.")
 
@@ -221,10 +221,9 @@ class Battle:
                     print(f"> > > {self.team2.name} Is Resonating.")
             else:
                 print("The stadium is dull.")
-        
+
         def discord_sequence():
             while team1_discordmembers and team2_discordmembers:
-                # print("While Performed")
                 discordclash1 = (team1_discordmembers[0].discord.total) + (random.randint(1, 6) + random.randint(1, 6))
                 discordclash2 = (team2_discordmembers[0].discord.total) + (random.randint(1, 6) + random.randint(1, 6))
 
@@ -289,12 +288,12 @@ class Battle:
                 team2_discordmembers.clear()
             else:
                 print("The stadium is quiet.")
-                
+
         self.harmonyattacklist.clear()
         self.hypeattacklist.clear()
         self.discordattacklist.clear()
         self.effect_clear()
-        
+
         self.collaborative_tribbing()
         self.declare_actions()
 
