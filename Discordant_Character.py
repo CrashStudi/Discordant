@@ -116,12 +116,17 @@ def Character_Create():
     InterviewTeam = None
     InterviewGenre = random.choice(genres)
     InterviewVibes = random.choice(vibes)
+    if Harmony + Hype + Discord <= 3:
+        Harmony = marks()
+        Hype = marks()
+        Discord = marks()
     x = Character(Stat(Harmony), Stat(Hype), Stat(Discord), Stat(Health, Health), Stat(Damage), Interviews(name=InterviewName, genre=InterviewGenre, vibe=InterviewVibes))
     return x
 
 
-print(Character_Create())
-print(len(firstnamelist))
-print(len(lastnamelist))
-print(len(genres))
-print(len(vibes))
+if __name__ == "__main__":
+    print(Character_Create())
+    print(len(firstnamelist))
+    print(len(lastnamelist))
+    print(len(genres))
+    print(len(vibes))

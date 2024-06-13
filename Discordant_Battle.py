@@ -2,10 +2,10 @@ from Discordant_Character import Character, Stat, Interviews, MiniStat
 from Discordant_Teams import Teams
 from Discordant_Stadium import Stadium
 from Discordant_Modifier import injured, moribund, homesteader, tempo
-from Discordant_Weather import shining
+from Discordant_Weather import Weather, shining
 from dataclasses import dataclass, field
 import random
-from typing import Any
+from typing import Any, Sequence
 from pprint import pprint
 
 
@@ -14,7 +14,7 @@ class Battle:
     team1: Teams
     team2: Teams
     stadium: Stadium
-    weather: object = field(default=None)
+    weather: Weather
     rounds: int = field(default=0)
     harmonyattacklist: list[Character] = field(default_factory=list)
     hypeattacklist: list[Character] = field(default_factory=list)
@@ -53,7 +53,7 @@ class Battle:
         while self.stadium.resonance1 < 10 and self.stadium.resonance2 < 10:
             print(self.stadium.resonance1, self.stadium.resonance2)
             self.round()
-    
+
     def team_clean_check(self):
         for member in self.team1.members:
             for modifier in member.inactive_effects:
@@ -69,7 +69,7 @@ class Battle:
     def team2_tribbing_function(self):
         for member in self.team2.members:
             member.tribulate_percents()
-            
+
     def collaborative_tribbing(self):
         self.team1_tribbing_function()
         self.team2_tribbing_function()
@@ -90,21 +90,42 @@ class Battle:
         self.discordattacklist.clear()
         self.effect_clear()
         self.collaborative_tribbing()
-        self.weather.weather_call()
-        self.team_clean_check()
         self.declare_actions()
-            
+
         team1_hypemembers = [member for member in self.team1.members if member in self.hypeattacklist]
         team2_hypemembers = [member for member in self.team2.members if member in self.hypeattacklist]
+        team1_harmonymembers = [member for member in self.team1.members if member in self.harmonyattacklist]
+        team2_harmonymembers = [member for member in self.team2.members if member in self.harmonyattacklist]
+        team1_discordmembers = [member for member in self.team1.members if member in self.discordattacklist]
+        team2_discordmembers = [member for member in self.team2.members if member in self.discordattacklist]
+        def format_clash(chars: Sequence[Character]) -> str:
+            """
+            Format a list of characters into a list of names following English conventions, with the Oxford comma.
 
-        character1hype_names = ', '.join([member.interviews.name for member in team1_hypemembers])
-        character2hype_names = ', '.join([member.interviews.name for member in team2_hypemembers])
-        
+            1  name:  just the name (`Arnold Smith`)
+            2  names: names[1] and names[2] (`Arnold Smith and Lena Jamisson`)
+            3+ names: names[1], names[n], ... and names[-1] (`Arnold Smith, Lena Jamisson, and Jay Diggins`)
+
+            Assumes there will always be at least one name.
+            """
+            names = [char.interviews.name for char in chars]
+
+            if len(names) == 1:
+                return names[0]
+
+            if len(names) == 2:
+                return " and ".join(names)
+
+            return ", ".join(names[:-1]) + f", and {names[-1]}"
+
+        self.weather.weather_call()
+        self.team_clean_check()
+
+        print(f'{format_clash(team1_hypemembers)} go up against {format_clash(team2_hypemembers)}!')
+
         while team1_hypemembers and team2_hypemembers:
-            # print("While Performed")
             hypeclash1 = (team1_hypemembers[0].hype.total) + (random.randint(1, 6) + random.randint(1, 6))
             hypeclash2 = (team2_hypemembers[0].hype.total) + (random.randint(1, 6) + random.randint(1, 6))
-            # print(team1_hypemembers, team2_hypemembers)
 
             if hypeclash1 > hypeclash2:
                 print(f"{team2_hypemembers[0].interviews.name}'s hype ({hypeclash2}) is overpowered!")
@@ -148,9 +169,6 @@ class Battle:
             print("The stadium is dim.")
 
             # print("Team 2 sublist is empty")
-
-        team1_harmonymembers = [member for member in self.team1.members if member in self.harmonyattacklist]
-        team2_harmonymembers = [member for member in self.team2.members if member in self.harmonyattacklist]
 
         while team1_harmonymembers and team2_harmonymembers:
             # print("While Performed")
@@ -203,9 +221,6 @@ class Battle:
                 print(f"> > > {self.team2.name} Is Resonating.")
         else:
             print("The stadium is dull.")
-
-        team1_discordmembers = [member for member in self.team1.members if member in self.discordattacklist]
-        team2_discordmembers = [member for member in self.team2.members if member in self.discordattacklist]
 
         while team1_discordmembers and team2_discordmembers:
             # print("While Performed")
